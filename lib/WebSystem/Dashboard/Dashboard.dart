@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:systems/CustomWidgets/SideBarButtons.dart';
+import 'package:systems/WebSystem/Resources/Constants.dart';
 
 class DashBoard extends StatelessWidget {
   const DashBoard({super.key});
@@ -18,34 +21,13 @@ class DashBoard extends StatelessWidget {
                     color: Color(0xffDADADA),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Column(
-                    children: [
-                      Container(
-                        child: IconButton(
-                          icon: Icon(Icons.menu),
-                          onPressed: () {},
-                        ),
-                      ),
-                      Container(
-                        child: IconButton(
-                          icon: Icon(Icons.menu),
-                          onPressed: () {},
-                        ),
-                      ),
-                      Container(
-                        child: IconButton(
-                          icon: Icon(Icons.menu),
-                          onPressed: () {},
-                        ),
-                      ),
-                      Container(
-                        child: IconButton(
-                          icon: Icon(Icons.menu),
-                          onPressed: () {},
-                        ),
-                      )
-                    ],
-                  ),
+                  child: ListView.builder(
+                      itemCount: 4,
+                      itemBuilder: (con, index) {
+                        return SideBarButtons(
+                          imagePath: Constants.icon_black_Analytics,
+                        );
+                      }),
                 )
               ],
             );

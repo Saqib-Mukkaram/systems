@@ -26,6 +26,7 @@ class WebHomeScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -66,7 +67,7 @@ class WebHomeScreen extends StatelessWidget {
                     minWidth: MediaQuery.of(context).size.width / 2,
                   ),
                   decoration: BoxDecoration(
-                    color: Color(0xff5D62B5),
+                    color: Color(0xff000000),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(50),
                       bottomLeft: Radius.circular(50),
