@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:systems/CustomWidgets/CustomButton.dart';
 import 'package:systems/CustomWidgets/InputField.dart';
@@ -26,7 +25,6 @@ class WebHomeScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
