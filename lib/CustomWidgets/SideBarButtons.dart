@@ -1,26 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:systems/WebSystem/Resources/Constants.dart';
 
 class SideBarButtons extends StatelessWidget {
-  final String imagePath;
+  final IconData icon;
   final Color color;
-  const SideBarButtons({
-    required this.imagePath,
-    this.color = Colors.white,
+  final Rx<bool> drawerButtonTapped;
+  final String buttonName;
+  final Rx<bool> selectedButton;
+
+  SideBarButtons({
+    required this.selectedButton,
+    required this.drawerButtonTapped,
+    required this.icon,
+    required this.buttonName,
+    this.color = Colors.black,
     super.key,
   });
 
+  final displayTest = false.obs;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.all(8),
-        constraints: const BoxConstraints(
-          minHeight: 50,
-          minWidth: 50,
+    return Obx(
+      () => AnimatedContainer(
+        onEnd: () {
+          displayTest.value = drawerButtonTapped.value;
+        },
+        duration: Duration(milliseconds: 500),
+        margin: const EdgeInsets.all(4),
+        constraints: BoxConstraints(
+          maxHeight: drawerButtonTapped.value ? 65 : 40,
+          maxWidth: 50,
         ),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: selectedButton.value
+              ? Colors.deepOrangeAccent.shade100
+              : Colors.white,
           borderRadius: BorderRadius.circular(8),
         ),
         child: InkWell(
@@ -28,14 +45,29 @@ class SideBarButtons extends StatelessWidget {
             // TODO:
             print("Button Pressed");
             // NOTE: Need to update accrodingly
+
             // Get.to()
           },
-          child: Image.asset(
-            imagePath,
-            width: 40,
-            height: 40,
-            fit: BoxFit.fill,
+          child: Center(
+            child: Column(
+              children: [
+                Icon(
+                  icon,
+                  color: color,
+                ),
+                Obx(() => displayTest.value
+                    ? Text(
+                        'Button',
+                        style: TextStyle(
+                          fontSize: 12,
+                        ),
+                      )
+                    : SizedBox.shrink())
+              ],
+            ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

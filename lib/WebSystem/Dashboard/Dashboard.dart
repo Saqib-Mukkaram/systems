@@ -3,31 +3,65 @@ import 'package:get/get.dart';
 import 'package:systems/CustomWidgets/SideBarButtons.dart';
 import 'package:systems/WebSystem/Resources/Constants.dart';
 
+
+enum DrawerButtonSelection { Sales,Inventory,Analytics, Customers }
+
 class DashBoard extends StatelessWidget {
-  const DashBoard({super.key});
+  DashBoard({super.key});
+
+  final iconsList = [
+    Icons.point_of_sale_outlined,
+    Icons.inventory_2_outlined,
+    Icons.insights_outlined,
+    Icons.people_outlined,
+  ];
+  final _drawerButtonTapped = false.obs;
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              _drawerButtonTapped.value = !_drawerButtonTapped.value;
+            }),
+        title: Text('Dashboard'),
+      ),
       body: SafeArea(
         child: LayoutBuilder(
           builder: (con, constraints) {
             return Row(
               children: [
-                Container(
-                  margin: EdgeInsets.all(8),
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: Color(0xffDADADA),
-                    borderRadius: BorderRadius.circular(8),
+                Obx(() => AnimatedContainer(
+                      duration: Duration(milliseconds: 500),
+                      constraints: BoxConstraints(
+                        minHeight: size.height,
+                        maxHeight: size.height,
+                        maxWidth: _drawerButtonTapped.value ? 200 : 50,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Color(0xffFAA250),
+                      ),
+                      child: ListView.builder(
+                          itemCount: iconsList.length,
+                          itemBuilder: (con, index) {
+
+                            return SideBarButtons(
+                              selectedButton: true.obs,
+                              buttonName:DrawerButtonSelection.values[index].toString(),
+                              drawerButtonTapped: _drawerButtonTapped,
+                              icon: iconsList[index],
+                            );
+                          }),
+                    )),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Color(0xffFAA250).withOpacity(0.1)),
                   ),
-                  child: ListView.builder(
-                      itemCount: 4,
-                      itemBuilder: (con, index) {
-                        return SideBarButtons(
-                          imagePath: Constants.icon_black_Analytics,
-                        );
-                      }),
                 )
               ],
             );

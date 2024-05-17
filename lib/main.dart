@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:systems/AppThemes.dart';
 import 'package:systems/WebSystem/Dashboard/Dashboard.dart';
 import 'package:systems/WebSystem/Home.dart';
 import 'package:systems/WebSystem/Resources/Languages.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Systems',
-      // initialRoute: '/',
+      initialRoute: '/dashboard',
       getPages: [
         GetPage(name: '/', page: () => WebHomeScreen()),
         GetPage(name: '/dashboard', page: () => DashBoard()),
@@ -30,21 +31,7 @@ class MyApp extends StatelessWidget {
       fallbackLocale: Locale('en', 'US'),
       translations: WebLanguages(),
       initialBinding: AppBindings(),
-
-      // home: FutureBuilder(
-      //   future: Future.delayed(Duration(seconds: 2)),
-      //   builder: (con, snapshot) {
-      //     if (snapshot.connectionState == ConnectionState.done) {
-      //       return WebHomeScreen();
-      //     } else {
-      //       return const Scaffold(
-      //         body: Center(
-      //           child: CircularProgressIndicator(),
-      //         ),
-      //       );
-      //     }
-      //   },
-      // ),
+      theme: AppThemes.lightTheme,
     );
   }
 }
