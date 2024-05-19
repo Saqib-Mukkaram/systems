@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:systems/CustomWidgets/SideBarButtons.dart';
+import 'package:systems/WebSystem/Dashboard/Components/SalesGraph.dart';
 import 'package:systems/WebSystem/Resources/Constants.dart';
 
-
-enum DrawerButtonSelection { Sales,Inventory,Analytics, Customers }
+enum DrawerButtonSelection { Sales, Inventory, Analytics, Customers }
 
 class DashBoard extends StatelessWidget {
   DashBoard({super.key});
@@ -48,19 +48,25 @@ class DashBoard extends StatelessWidget {
                       child: ListView.builder(
                           itemCount: iconsList.length,
                           itemBuilder: (con, index) {
-
                             return SideBarButtons(
-                              selectedButton: true.obs,
-                              buttonName:DrawerButtonSelection.values[index].toString(),
+                              selectedButton: false.obs,
+                              buttonName: DrawerButtonSelection.values[index]
+                                  .toString(),
                               drawerButtonTapped: _drawerButtonTapped,
                               icon: iconsList[index],
                             );
                           }),
                     )),
                 Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Color(0xffFAA250).withOpacity(0.1)),
+                  child: SingleChildScrollView(
+                    child: Container(
+                      width: size.width,
+                      decoration: BoxDecoration(
+                          color: Color(0xffFAA250).withOpacity(0.1)),
+                      child: Column(
+                        children: [LineChartSample1()],
+                      ),
+                    ),
                   ),
                 )
               ],
